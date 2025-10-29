@@ -54,7 +54,7 @@ The system uses three types of tasks to check miners from different sides.
         *   The Discriminators are shown these two works for voting: one good (from the Generator) and one spoiled (created by the validator). The Discriminators do not know which work is whose and that one of them was substituted.
 *   **Score Allocation (only penalties):**
     *   **For Discriminators:**
-        *   A **Penalty (`-1` point)** is imposed on any Discriminator who votes for the **spoiled work**.
+        *   A **Penalty (`-0.4` point)** is imposed on any Discriminator who votes for the **spoiled work**.
         *   Discriminators who voted for the good work receive neither points nor a penalty. They simply performed their work correctly.
     *   **For Generators:**
         *   **Both Generators** receive neither points nor a penalty for this task. Their work in this round is not evaluated for reward, because one of the works was distorted by the validator. The goal of the round is not their competition.
