@@ -37,34 +37,43 @@ The system uses three types of tasks to check miners from different sides.
     *   **All Discriminators** divide 1 point among themselves. Each receives `1 / n`. They do not lose points; their task is simply to participate in the voting.
     *   **Generators** receive points depending on the number of votes they gathered. The Generator with the higher quality work will receive more votes and, consequently, more points.
 
-**3. Control Round / Trap Round**
+
+### ** Control Round / Trap Round**
 
 *   **Goal:** To punish inattentive, incompetent, or dishonest Discriminators. This is a check *of the discriminators*, not the generators.
+
 *   **Process:**
+
     *   **Task Creation and Work Receipt:**
-        1.  The validator creates a task and sends it to **two random Generators**.
-        2.  Both Generators honestly execute the task and send their works. They do not know that this is a "trap" and try to do well.
-    *   **Substitution of the Result by the Validator (key moment):**
-        1.  **The validator receives both works from the Generators.**
-        2.  **Then the validator intentionally spoils, distorts, or worsens ONE of these works.** It creates a knowingly bad, "negative" version.
-        3.  Now the validator has:
-            *   The original, good work from the first Generator.
-            *   The spoiled, bad work, created by the validator itself based on the second Generator's work.
+        The Validator creates a task. **There are two possible scenarios for selecting generators:**
+
+        1.  **Two Generators (1 Scenario):** The validator sends the task to two random miner-Generators. Both Generators honestly execute the task and send their works.
+        2.  **One Generator (2 Scenario):** The validator sends the task to only **one** random miner-Generator. The validator itself generates a high-quality baseline for the task.
+
+        In both scenarios, the Generators do not know this is a "trap" and try to do well.
+
+    *   **Substitution of the Result by the Validator (Key Moment):**
+        The validator now intentionally creates a "negative" sample.
+        *   In the **Two Generator scenario**, the validator takes one of the two submitted works and **spoils, distorts, or worsens it**.
+        *   In the **One Generator scenario**, the validator takes its own high-quality baseline and **spoils, distorts, or worsens it**.
+
+        Now the validator has:
+        *   One **good work** (from a Generator in either scenario, or its own baseline in the one-generator scenario).
+        *   One **knowingly spoiled, bad work** (created by the validator).
+
     *   **Voting:**
-        *   The Discriminators are shown these two works for voting: one good (from the Generator) and one spoiled (created by the validator). The Discriminators do not know which work is whose and that one of them was substituted.
-*   **Score Allocation (only penalties):**
+        The Discriminators are shown these two works for voting: one good and one spoiled. The Discriminators do not know which work is which, that one of them was artificially created to be bad, or how many generators were involved.
+
+*   **Why the One-Generator Scenario is Crucial:**
+    This is a direct measure to prevent miners from gaming the system. If a single entity controls two miner "hotkeys" (identifiers) and they are both selected for a trap round, they would instantly know it's a trap because they received identical or very similar prompts. This would allow them to coordinate their votes and avoid the penalty. By using only one genuine miner and creating the negative sample itself, the validator eliminates this risk and ensures the trap's unpredictability and effectiveness.
+
+*   **Score Allocation (Only Penalties):**
     *   **For Discriminators:**
-        *   A **Penalty (`-0.4` point)** is imposed on any Discriminator who votes for the **spoiled work**.
-        *   Discriminators who voted for the good work receive neither points nor a penalty. They simply performed their work correctly.
+        *   A **Penalty (`-1` point)** is imposed on any Discriminator who votes for the **spoiled work**.
+        *   Discriminators who voted for the good work receive neither points nor a penalty.
     *   **For Generators:**
-        *   **Both Generators** receive neither points nor a penalty for this task. Their work in this round is not evaluated for reward, because one of the works was distorted by the validator. The goal of the round is not their competition.
+        *   The involved Generator(s) receive **neither points nor a penalty**. Their role was to provide a genuine sample or to act as a decoy; the round is not for their evaluation.
 
-**Why This is Needed:**
-
-This mechanism is like a "control purchase" or a "check for professional suitability" for Discriminators.
-
-*   **Check of Attentiveness:** If a discriminator cannot distinguish an obviously bad work from a good one, they are incompetent and receive a penalty.
-*   **Fight Against Blind Voting:** Some dishonest discriminators may collude to always vote for "their own" or, conversely, always vote against the validator. Here, the validator substitutes a knowingly bad work, and if a discriminator votes for it (for example, because they agreed to do so with their "partner"-generator), they are caught and penalized.
 
 ### Explanation of the Graphics
 
