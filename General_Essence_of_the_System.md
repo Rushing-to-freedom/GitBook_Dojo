@@ -38,7 +38,7 @@ The system uses three types of tasks to check miners from different sides.
     *   **Generators** receive points depending on the number of votes they gathered. The Generator with the higher quality work will receive more votes and, consequently, more points.
 
 
-### ** Control Round / Trap Round**
+###  Control Round / Trap Round
 
 *   **Goal:** To punish inattentive, incompetent, or dishonest Discriminators. This is a check *of the discriminators*, not the generators.
 
